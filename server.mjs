@@ -1,3 +1,4 @@
+import {normalizeLyrics} from './music-lyrics.mjs';
 import http from 'node:http';
 import {playerBridge} from './player-bridge.mjs';
 import {registerExternalTrack,externalTrack} from './external-tracks.mjs';
@@ -64,6 +65,7 @@ const server=http.createServer(async(req,res)=>{try{
  if(p==='/api/playlist-picker')return json(res,await createdPlaylists());
  if(p==='/api/comments')return json(res,await loadComments(u.searchParams.get('id'),u.searchParams.get('type')||'song',Number(u.searchParams.get('offset')||0),u.searchParams.get('cursor')||''));
  if(p==='/api/playlist-remove'&&req.method==='POST'){let text='';for await(const part of req)text+=part;return json(res,await removeSongFromPlaylist(JSON.parse(text)));}
+ if(p.startsWith('/api/lyrics/')){const id=decodeURIComponent(p.split('/').pop());if(id.startsWith('external_'))return json(res,{...normalizeLyrics(),message:'此音源暂未接入歌词'});return json(res,normalizeLyrics((await api.lyric(id)).data));}
  if(p.startsWith('/api/song/external_'))return json(res,externalTrack(p.split('/').pop()));
  if(p.startsWith('/api/song/'))return json(res,song((await api.song(p.split('/').pop())).data));
  if(p.startsWith('/api/playlist-detail/'))return json(res,playlist((await api.playlistDetail(p.split('/').pop())).data));
