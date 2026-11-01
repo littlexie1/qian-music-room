@@ -41,6 +41,7 @@ proto.load=function(){this._time=0;this.dispatchEvent(new Event('loadedmetadata'
    page.evaluate('audio.currentTime=80;audio.dispatchEvent(new Event("timeupdate"))')
    assert page.locator('.lyric-line.active').inner_text()=='s1 自己编写的测试歌词 20'
    page.wait_for_function('document.querySelector("#lyrics-lines").scrollTop>0')
+   page.wait_for_function('''()=>{const line=document.querySelector('.lyric-line.active').getBoundingClientRect(),box=document.querySelector('#lyrics-lines').getBoundingClientRect();return Math.abs((line.top+line.bottom-box.top-box.bottom)/2)<8}''')
    page.evaluate('audio.pause()')
    assert page.locator('#lyrics-cover').evaluate("el=>getComputedStyle(el).animationPlayState")=='paused'
    angle=page.locator('#lyrics-cover').evaluate('el=>getComputedStyle(el).transform')
