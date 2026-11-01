@@ -1,6 +1,6 @@
 {
   "name": "qian-music-room",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "description": "千小姐的音乐室：原生音频找歌 Agent，使用用户自己的凭证",
   "engines": {

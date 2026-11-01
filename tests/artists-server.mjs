@@ -1,0 +1,10 @@
+import {api} from '../netease.mjs';
+await import('./player-server.mjs');
+const cover='data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="#c7b8dd"/></svg>');
+const artists=[{id:'a1',originalId:100,name:'音乐人甲',coverImgUrl:cover},{id:'a2',originalId:101,name:'音乐人乙',coverImgUrl:cover}];
+const raw=(id,name='组合演唱')=>({id,name,artists,duration:180000,coverImgUrl:cover,visible:true,playFlag:true});
+api.daily=async()=>({data:[raw('s1'),raw('s2','另一首作品')]});api.song=async id=>({data:raw(id)});
+api.artistSongs=async(id,offset)=>{if(id==='a2')await new Promise(r=>setTimeout(r,150));return {data:Array.from({length:offset===0?30:2},(_,i)=>({...raw(id+'-'+(offset+i),'原创作品 '+(offset+i)),album:{id:'album'+(i%2),originalId:200+i%2,name:'作品集 '+(i%2)}}))};};
+api.albumDetail=async id=>({data:{id,name:'专辑 '+id,description:'这是专辑介绍 <script>window.BAD=1</script>'}});
+api.albumTracks=async id=>({data:[raw(id+'-track1','专辑第一首'),raw(id+'-track2','专辑第二首')]});
+api.lyric=async()=>({data:{lyric:'[00:00.00]测试自己写的歌词'}});

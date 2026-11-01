@@ -35,6 +35,9 @@ export async function cliWrite(command,args,group='playlist'){
  if(result.code!==200)throw Error('网易云：'+(result.message||result.msg||'写入失败')+'（'+result.code+'）');return result;
 }
 export const api={
+ artistSongs:(artistId,offset=0)=>ncm('/openapi/music/basic/song/artist/bypubtime/get/v2',{artistId,limit:30,offset,startTime:1,endTime:Date.now(),qualityFlag:true}),
+ albumDetail:albumId=>ncm('/openapi/music/basic/album/detail/get/v2',{albumId,descFlag:true},'POST'),
+ albumTracks:albumId=>ncm('/openapi/music/basic/album/song/list/get/v2',{albumId,qualityFlag:true},'POST'),
  playHistory:(limit=100)=>ncm('/openapi/music/basic/song/play/record/list',{limit,qualityFlag:true}),
  profile:()=>ncm('/openapi/music/basic/user/profile/get/v2'),
  search:(keyword,type='song',offset=0)=>ncm(type==='playlist'?'/openapi/music/basic/search/playlist/get/v2':'/openapi/music/basic/search/song/get/v3',{keyword,limit:30,offset,qualityFlag:true}),
