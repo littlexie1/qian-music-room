@@ -1,0 +1,2 @@
+export function song(s){return {id:s.id||s.songId,originalId:s.originalId,name:s.name||s.songName,artists:(s.artists||s.ar||s.artistList||[]).map(a=>a.name).join(' / '),cover:s.album?.picUrl||s.album?.coverImgUrl||s.al?.picUrl||s.coverImgUrl||s.picUrl,duration:s.duration||s.dt,liked:s.liked,available:s.visible!==false&&s.playFlag!==false};}
+export function playlist(p){return {...p,id:p.id||p.playlistId,cover:p.coverImgUrl||p.picUrl||p.cover};}

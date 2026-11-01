@@ -1,0 +1,13 @@
+node_modules/
+.env
+.env.*
+!.env.example
+private/
+state/
+cache/
+*.log
+*.pem
+*.key
+*.pfx
+*.p12
+*.xml

@@ -1,0 +1,16 @@
+{
+  "name": "qian-music-room",
+  "version": "0.1.0",
+  "private": true,
+  "description": "千小姐的音乐室：原生音频找歌 Agent，使用用户自己的凭证",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env --use-env-proxy server.mjs",
+    "doctor": "node --env-file-if-exists=.env doctor.mjs",
+    "configure": "node --env-file-if-exists=.env setup-netease.cjs configure",
+    "login": "node --env-file-if-exists=.env setup-netease.cjs login",
+    "sync-session": "node --env-file-if-exists=.env sync-session.cjs",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": { "@music163/ncm-cli": "0.1.7" }
+}
